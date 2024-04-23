@@ -1,0 +1,2 @@
+# when using a templating language like flask, any assets we use, need a folder called static
+# templating language relies on using the url_for method to allocate local resources needed for project, css, scripts, and images, etc
