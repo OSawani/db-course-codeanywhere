@@ -10,7 +10,9 @@ def home():
 
 @app.route("/categories")
 def categories():
-    return render_template("categories.html")
+    categories = list(Category.query.order_by(Category.category_name).all())
+    return render_template("categories.html", categories=categories) # first declaration is var name which can be used in html, second(list) is what is used in the function above
+    # .all returns categories cursor object, similar to an array or list of records even if a single record
 
 @app.route("/add_category", methods=["GET", "POST"])
 def add_category():
