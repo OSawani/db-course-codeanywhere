@@ -5,14 +5,17 @@ from taskmanager.models import Category, Task
 
 @app.route("/")
 def home():
-    return render_template("tasks.html")
+    tasks = list(Task.query.order_by(Task.id).all())
+    return render_template("tasks.html", tasks=tasks)
 
 
 @app.route("/categories")
 def categories():
     categories = list(Category.query.order_by(Category.category_name).all())
     return render_template("categories.html", categories=categories) # first declaration is var name which can be used in html, second(list) is what is used in the function above
-    # .all returns categories cursor object, similar to an array or list of records even if a single record
+    # .all returns categories cursor object or QuerySet, similar to an array or list of records even if a single record
+    # in some cases, you cannot use a QuerySet with the frontend or with some of the jinja template filters
+    #often it is better to convert query to a python list. using list()
 
 @app.route("/add_category", methods=["GET", "POST"])
 def add_category():
